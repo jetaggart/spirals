@@ -1,20 +1,21 @@
 class Spirals
-  attr_reader :starting, :width
+  attr_reader :starting, :size, :width
   attr_accessor :result, :starting
 
   def initialize(starting, width)
     @starting = starting - 1
+    @size     = width * width
     @width    = width
     @result   = width.times.map { [] }
   end
 
   def generate
-    position = {:x => 0, :y => 0}
-    direction = {:x => :pos, :y => :pos}
-    current_dir = :y
+    position       = {:x => 0, :y => 0}
+    direction      = {:x => :pos, :y => :pos}
+    current_dir    = :y
     numbers_placed = 0
 
-    while (numbers_placed < (width * width)) do
+    while numbers_placed < size do
       if in_bounds(position[current_dir]) && result[position[:x]][position[:y]].nil?
         result[position[:x]][position[:y]] = next_number
         next_position(current_dir, direction, position)
@@ -32,7 +33,11 @@ class Spirals
   end
 
   def next_position(current_dir, direction, position)
-    direction[current_dir] == :pos ? position[current_dir] += 1 : position[current_dir] -= 1
+    if direction[current_dir] == :pos
+      position[current_dir] += 1
+    else
+      position[current_dir] -= 1
+    end
   end
 
   private
