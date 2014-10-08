@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+require "./lib/spirals"
+
+formatted = Spirals.new(10, 10).generate.map do |row|
+    row.map do |item|
+        item.to_s.rjust(4, " ")
+    end
+end
+
+formatted.each do |row|
+  puts row.join
+end
